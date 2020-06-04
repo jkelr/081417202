@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>081417202牛靖杰</title>
+    <link rel="short icon" href="Resource/Resource/icon.png">
+    <link rel="stylesheet" href="ExternalStyle.css">
+    <style>
+        article{
+            margin:20px ;
+        }
+        h3{
+            color:red;
+            font-size:18px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dddddd;
+        }
+        h4{
+            font-size:14px;
+        }
+        p{
+            font-size: 12px;
+            text-indent:2em;
+            line-height: 2em;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <span>平台风采</span>
+</header>
+
+<section class="DS_second_section">
+    <img src="Resource/Resource/banner4.png" alt="请查看配置">
+</section>
+
+<article>
+    <h3 id="title"></h3>
+    <h4 id="subTitle"></h4>
+    <p id="info"></p>
+    <script>
+        function assign(obj){
+            var title_tag =document.getElementById("title");
+            var subTitle_Tag =document.getElementById("subTitle");
+            var info_tag =document.getElementById("info");
+            title_tag.innerHTML = obj.title;
+            subTitle_Tag.innerHTML =obj.subTitle;
+            info_tag.innerHTML =obj.info;
+        }
+
+        var obj_text=JSON.parse(localStorage.getItem("platform_json"));
+        var obj = obj_text.data;
+        if(obj){
+            assign(obj);
+        }else {
+            var xhr = new XMLHttpRequest();
+            xhr.open('get', 'https://mockapi.eolinker.com/2ZhGVxjacb39010e6753bd9c02ee803e6e3bfeab6e8007c/aboutus');
+            //设置请求头，告诉以表单形式传递
+            xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+            //向服务器发送请求
+            // var par="username="+userName+"&pwd="+pwd;
+            //xhr.send(par);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var responseData = JSON.parse(xhr.responseText);
+                    var obj = responseData.data;
+                    assign(obj);
+                    window.localStorage.setItem("platform_json", xhr.responseText);
+                    localStorage.removeItem("platform_json");
+                }
+            }
+        }
+    </script>
+</article>
+
+<footer>
+    <a href="081417202.html"> <img src="Resource/Resource/nav10.png"><span>小滴服务</span></a>
+    <a href=""> <img src="Resource/Resource/nav20.png"><span>企业项目</span></a>
+    <a href="hand.html"> <img src="Resource/Resource/nav30.png"><span>服务流程</span></a>
+    <a href=""> <img src="Resource/Resource/nav41.png"><span style="color:red">平台风采</span></a>
+    <a href="MyD.html"> <img src="Resource/Resource/nav50.png"><span>我的小滴</span></a>
+</footer>
+</body>
+</html>
